@@ -11,6 +11,15 @@ build:
 	docker build -t ${OWNER}/hadoop-historyserver:$(current_branch) ./historyserver
 	docker build -t ${OWNER}/hadoop-submit:$(current_branch) ./submit
 
+push:
+	docker push ${OWNER}/hadoop-base:$(current_branch)
+	docker push ${OWNER}/hadoop-namenode:$(current_branch)
+	docker push ${OWNER}/hadoop-datanode:$(current_branch)
+	docker push ${OWNER}/hadoop-resourcemanager:$(current_branch)
+	docker push ${OWNER}/hadoop-nodemanager:$(current_branch)
+	docker push ${OWNER}/hadoop-historyserver:$(current_branch)
+	docker push ${OWNER}/hadoop-submit:$(current_branch)
+
 wordcount:
 	docker build -t hadoop-wordcount ./submit
 	docker run --network ${DOCKER_NETWORK} --env-file ${ENV_FILE} ${OWNER}/hadoop-base:$(current_branch) hdfs dfs -mkdir -p /input/
